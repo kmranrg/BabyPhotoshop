@@ -148,35 +148,26 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="text-container">
-                        <h3>Limitations Of Liability</h3>
-                        <p>Aria also automatically collects and receives certain information from your computer or mobile device, including the activities you perform on our Website, the Platforms, and the Applications, the type of hardware and software you are using (for example, your operating system or browser), and information obtained from cookies. For example, each time you visit the Website or otherwise use the Services, we automatically collect your IP address, browser and device type, access times, the web page from which you came, the regions from which you navigate the web page, and the web page(s) you access (as applicable).</p>
-                        <p>When you first register for a Aria account, and when you use the Services, we collect some <a class="green" href="#your-link">Personal Information</a> about you such as:</p>
-                        <ul class="list-unstyled li-space-lg indent">
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <div class="media-body">The geographic area where you use your computer and mobile devices</div>
-                            </li>
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <div class="media-body">Your full name, username, and email address and other contact details</div>
-                            </li>
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <div class="media-body">A unique Aria user ID (an alphanumeric string) which is assigned to you upon registration</div>
-                            </li>
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <div class="media-body">Other optional information as part of your account profile</div>
-                            </li>
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <div class="media-body">Your IP Address and, when applicable, timestamp related to your consent and confirmation of consent</div>
-                            </li>
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <div class="media-body">Other information submitted by you or your organizational representatives via various methods</div>
-                            </li>
-                        </ul>
+                        <h3>Adjust Brightness</h3>
+
+                        <p>STEP-1: Upload Image</p>
+
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="file" name="imageFile">
+                            <button type="submit">Upload Image</button>
+                        </form>
+
+                        <canvas id="original_image_canvas" width="300" height="300" style="border:2px solid #000000;">
+                        </canvas><br><br>
+
+                        <p>STEP-2: Enter Brightness Value</p>
+                        <input type="text" placeholder="type brightness value...">
+                        <input type="submit"><br><br>
+
+                        <p>STEP-3: Preview</p>
+                        <canvas id="enhanced_image_canvas" width="300" height="300" style="border:2px solid #000000;">
+                        </canvas>
                     </div> <!-- end of text-container -->
 
                 </div>
@@ -289,5 +280,6 @@
     <script src="{% static 'js/isotope.pkgd.min.js' %}"></script> <!-- Isotope for filter -->
     <script src="{% static 'js/validator.min.js' %}"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="{% static 'js/scripts.js' %}"></script> <!-- Custom scripts -->
+
 </body>
 </html>
