@@ -4,5 +4,5 @@ from django.shortcuts import render
 def index(request):
     return render(request, 'index.html')
 
-def privacyPolicy(request):
-    return render(request, 'privacy-policy.html')
+def photo(request):
+    return render(request, 'photo.html')
