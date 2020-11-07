@@ -151,14 +151,16 @@
                         <h3>Adjust Brightness</h3>
 
                         <p>STEP-1: Upload Image</p>
-
+                        
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             <input type="file" name="imageFile">
                             <button type="submit">Upload Image</button>
+                            <p>ANSWER:{{uploaded_file_name}}</p>
                         </form>
-
+                        
                         <canvas id="original_image_canvas" width="300" height="300" style="border:2px solid #000000;">
+                            <img src="{% static 'media/my_baby.jpeg'% }" alt="">
                         </canvas><br><br>
 
                         <p>STEP-2: Enter Brightness Value</p>
