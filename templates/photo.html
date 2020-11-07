@@ -148,29 +148,34 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="text-container">
-                        <h3>Adjust Brightness</h3>
+                        <h3>Adjust Sharpness</h3>
 
-                        <p>STEP-1: Upload Image</p>
+                        <p>Upload Image</p>
                         
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             <input type="file" name="imageFile">
-                            <button type="submit">Upload Image</button>
-                            <p>ANSWER:{{uploaded_file_name}}</p>
+                            <button type="submit" class="btn-solid-reg page-scroll">Upload Image</button>
+                            <p>Uploaded File: {{uploaded_file_name}}</p>
                         </form>
 
-                        <canvas id="original_image_canvas" width="300" height="300" style="border:2px solid #000000;">
-                            
-                        </canvas><br><br>
-                        <img class="img-fluid" src="../media/{{uploaded_file_name}}" alt="alternative">
+                        <img class="img-fluid"  width="300" height="300" src="../media/{{usr_uploaded_file.name}}" alt="Please upload file 🙃">
 
-                        <p>STEP-2: Enter Brightness Value</p>
-                        <input type="text" placeholder="type brightness value...">
-                        <input type="submit"><br><br>
+                        <input type="text" placeholder="type sharpness value...">
+                        <input type="submit" class="btn-solid-reg page-scroll">
 
-                        <p>STEP-3: Preview</p>
-                        <canvas id="enhanced_image_canvas" width="300" height="300" style="border:2px solid #000000;">
-                        </canvas>
+                        {% if usr_uploaded_file.type == "jpg" %}
+                        <img class="img-fluid"  width="300" height="300" src="../media/sharpness.jpg" alt="Waiting for file upload 🙃">
+                        {% endif %}
+
+                        {% if usr_uploaded_file.type == "png" %}
+                        <img class="img-fluid"  width="300" height="300" src="../media/sharpness.png" alt="Waiting for file upload 🙃">
+                        {% endif %}
+
+                        {% if usr_uploaded_file.type == "jpeg" %}
+                        <img class="img-fluid"  width="300" height="300" src="../media/sharpness.jpeg" alt="Waiting for file upload 🙃">
+                        {% endif %}
+
                     </div> <!-- end of text-container -->
 
                 </div>
