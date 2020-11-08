@@ -163,7 +163,8 @@
                 <input type="file" name="imageFile" required><br><br>
 
                 <p><b>Step 2: Enter Sharpness Value</b></p>
-                <input style="width: 30%;" name="sharpnessValue" class="form-control-input" type="number" placeholder="value..." required><br>
+                <input style="width: 30%;" name="sharpnessValue" class="form-control-input" type="number"
+                    placeholder="value..." required><br>
                 <button type="submit" class="btn-solid-reg page-scroll">Submit</button>
             </form>
             <!-- End of File Uploadling -->
@@ -172,8 +173,8 @@
             {% if usr_uploaded_file.type == "jpg" or usr_uploaded_file.type == "png" or usr_uploaded_file.type == "jpeg" %}
             <!-- Description -->
             <div class="cards-1">
-                <p><b>PREVIEW</b></p>
-                <p>Uploaded File: {{usr_uploaded_file.name}}</p><br>
+                <h4>PREVIEW</h4>
+                <p style="color: #51c099;"><b>Uploaded File:</b> {{usr_uploaded_file.name}}</p><br>
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -187,10 +188,10 @@
                                 </span>
                                 <div class="card-body">
                                     <h4 class="card-title">Original Image</h4>
-                                    
+
                                     <img class="img-fluid" width="500" height="500"
                                         src="../media/{{usr_uploaded_file.name}}" alt="Please upload file 🙃">
-                                    
+
                                 </div>
                             </div>
                             <!-- end of card -->
@@ -204,18 +205,18 @@
                                 <div class="card-body">
                                     <h4 class="card-title">New Image</h4>
                                     {% if usr_uploaded_file.type == "jpg" %}
-                                    <img class="img-fluid" width="500" height="500" src="../media/sharpness.jpg"
-                                        alt="Waiting for file upload 🙃">
+                                    <img class="img-fluid" width="500" height="500"
+                                        src="../media/sharpness_kumar_anurag.jpg" alt="Waiting for file upload 🙃">
                                     {% endif %}
 
                                     {% if usr_uploaded_file.type == "png" %}
-                                    <img class="img-fluid" width="500" height="500" src="../media/sharpness.png"
-                                        alt="Waiting for file upload 🙃">
+                                    <img class="img-fluid" width="500" height="500"
+                                        src="../media/sharpness_kumar_anurag.png" alt="Waiting for file upload 🙃">
                                     {% endif %}
 
                                     {% if usr_uploaded_file.type == "jpeg" %}
-                                    <img class="img-fluid" width="500" height="500" src="../media/sharpness.jpeg"
-                                        alt="Waiting for file upload 🙃">
+                                    <img class="img-fluid" width="500" height="500"
+                                        src="../media/sharpness_kumar_anurag.jpeg" alt="Waiting for file upload 🙃">
                                     {% endif %}
                                 </div>
                             </div>
