@@ -15,13 +15,13 @@ def sharpness(sharpness_value, imageFile):
     img = enhancer.enhance(sharpness_value)
 
     if imageFile[-3:] == "jpg":
-        img.save("media/sharpness.jpg")
+        img.save("media/sharpness_kumar_anurag.jpg")
         return "jpg"
     elif imageFile[-3:] == "png":
-        img.save("media/sharpness.png")
+        img.save("media/sharpness_kumar_anurag.png")
         return "png"
     elif imageFile[-4:] == "jpeg":
-        img.save("media/sharpness.jpeg")
+        img.save("media/sharpness_kumar_anurag.jpeg")
         return "jpeg"
     else:
         return "file not saved"
