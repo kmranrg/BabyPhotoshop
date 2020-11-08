@@ -29,9 +29,14 @@ def sharpness(sharpness_value, imageFile):
 
 def photo(request):
     usr_uploaded_file = ""
+    usr_sharpnessValue = 0
     if request.method == 'POST':
+
         uploaded_file = request.FILES['imageFile']
         usr_uploaded_file = str(uploaded_file.name)
+
+        sharpnessValue = int(request.POST["sharpnessValue"])
+        usr_sharpnessValue = sharpnessValue
 
         # deleting the file if filename already exists
         if path.exists("media/"+usr_uploaded_file):
@@ -42,7 +47,7 @@ def photo(request):
         fs.save(uploaded_file.name, uploaded_file)
 
         # calling sharpness function
-        fileType = sharpness(95 , "media/"+usr_uploaded_file)
+        fileType = sharpness(usr_sharpnessValue , "media/"+usr_uploaded_file)
 
         if fileType == "file not saved":
             usr_uploaded_file = "File  not uploaded. Please upload jpg, png and jpeg file formats only"
