@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('photo/', views.photo, name='photo')
+    path('photo_sharpness/', views.photo_sharpness, name='photo_sharpness'),
+    path('photo_saturation/', views.photo_saturation, name='photo_saturation')
 ]
