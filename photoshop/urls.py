@@ -7,5 +7,6 @@ urlpatterns = [
     path('photo_saturation/', views.photo_saturation, name='photo_saturation'),
     path('photo_transpose/', views.photo_transpose, name='photo_transpose'),
     path('photo_brightness/', views.photo_brightness, name='photo_brightness'),
-    path('photo_contrast/', views.photo_contrast, name='photo_contrast')
+    path('photo_contrast/', views.photo_contrast, name='photo_contrast'),
+    path('photo_gaussian_blur/', views.photo_gaussian_blur, name='photo_gaussian_blur')
 ]
