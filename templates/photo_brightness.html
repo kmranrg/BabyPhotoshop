@@ -151,19 +151,19 @@
     </div> <!-- end of ex-basic-1 -->
     <!-- end of breadcrumbs -->
 
-    <!-- Saturation -->
+    <!-- Brightness -->
     <div class=" container card">
         <div style="margin: 2%;">
-            <h3>Adjust Saturation</h3><br>
+            <h3>Adjust Brightness</h3><br>
 
             <!-- File Uploading -->
             <p><b>Step 1: Upload Image</b></p>
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="file" name="imageFileForSaturation" accept=".png, .jpg, .jpeg" required><br><br>
+                <input type="file" name="imageFileForBrightness" accept=".png, .jpg, .jpeg" required><br><br>
 
-                <p><b>Step 2: Enter Saturation Value</b></p>
-                <input style="width: 30%;" step="any" name="saturationValue" class="form-control-input" type="number"
+                <p><b>Step 2: Enter Brightness Value</b></p>
+                <input style="width: 30%;" step="any" name="brightnessValue" class="form-control-input" type="number"
                     placeholder="value..." required><br>
                 <button type="submit" class="btn-solid-reg page-scroll">Submit</button>
             </form>
@@ -204,20 +204,19 @@
                                 </span>
                                 <div class="card-body">
                                     <h4 class="card-title">New Image</h4>
-
                                     {% if usr_uploaded_file.type == "jpg" %}
                                     <img class="img-fluid" width="500" height="500"
-                                        src="../media/saturated_kumar_anurag.jpg" alt="Waiting for file upload 🙃">
+                                        src="../media/brightness_kumar_anurag.jpg" alt="Waiting for file upload 🙃">
                                     {% endif %}
 
                                     {% if usr_uploaded_file.type == "png" %}
                                     <img class="img-fluid" width="500" height="500"
-                                        src="../media/saturated_kumar_anurag.png" alt="Waiting for file upload 🙃">
+                                        src="../media/brightness_kumar_anurag.png" alt="Waiting for file upload 🙃">
                                     {% endif %}
 
                                     {% if usr_uploaded_file.type == "jpeg" %}
                                     <img class="img-fluid" width="500" height="500"
-                                        src="../media/saturated_kumar_anurag.jpeg" alt="Waiting for file upload 🙃">
+                                        src="../media/brightness_kumar_anurag.jpeg" alt="Waiting for file upload 🙃">
                                     {% endif %}
                                 </div>
                             </div>
@@ -233,7 +232,7 @@
 
 
     </div>
-    <!-- End of Saturation -->
+    <!-- End of Brightness -->
 
     <!-- Breadcrumbs -->
     <div class="ex-basic-1">

@@ -77,6 +77,56 @@ def transpose(transposeValue, imageFileName):
     else:
         return "file not saved"
 
+def brightness(brightnessValue, imageFileName):
+    imageFileName = str(imageFileName)
+    brightnessValue = int(brightnessValue)
+
+    img = Image.open(imageFileName)
+
+    brightness = ImageEnhance.Brightness(img)
+    img = brightness.enhance(brightnessValue)
+
+    if imageFileName[-3:] == "jpg":
+        img.save("media/brightness_kumar_anurag.jpg")
+        return "jpg"
+    elif imageFileName[-3:] == "png":
+        img.save("media/brightness_kumar_anurag.png")
+        return "png"
+    elif imageFileName[-4:] == "jpeg":
+        img.save("media/brightness_kumar_anurag.jpeg")
+        return "jpeg"
+    else:
+        return "file not saved"
+
+def photo_brightness(request):
+    usr_uploaded_file = ""
+    usr_brightnessValue = 0
+    if request.method == 'POST':
+
+        uploaded_file = request.FILES['imageFileForBrightness']
+        usr_uploaded_file = str(uploaded_file.name)
+
+        brightnessValue = float(request.POST["brightnessValue"])
+        usr_brightnessValue = brightnessValue
+
+        # deleting the file if filename already exists
+        if path.exists("media/"+usr_uploaded_file):
+            remove("media/"+usr_uploaded_file)
+
+        # saving the file
+        fs = FileSystemStorage()
+        fs.save(uploaded_file.name, uploaded_file)
+
+        # calling brightness function
+        fileType = brightness(usr_brightnessValue , "media/"+usr_uploaded_file)
+
+        if fileType == "file not saved":
+            usr_uploaded_file = "File  not uploaded. Please upload jpg, png and jpeg file formats only"
+        else:
+            usr_uploaded_file = {"name":uploaded_file.name, "type":fileType}
+
+    return render(request, 'photo_brightness.html', {'usr_uploaded_file': usr_uploaded_file})
+
 def photo_transpose(request):
 
     usr_uploaded_file = ""
@@ -114,7 +164,7 @@ def photo_saturation(request):
         uploaded_file = request.FILES['imageFileForSaturation']
         usr_uploaded_file = str(uploaded_file.name)
 
-        saturationValue = int(request.POST["saturationValue"])
+        saturationValue = float(request.POST["saturationValue"])
         usr_saturationValue = saturationValue
 
         # deleting the file if filename already exists
@@ -143,7 +193,7 @@ def photo_sharpness(request):
         uploaded_file = request.FILES['imageFileForSharpness']
         usr_uploaded_file = str(uploaded_file.name)
 
-        sharpnessValue = int(request.POST["sharpnessValue"])
+        sharpnessValue = float(request.POST["sharpnessValue"])
         usr_sharpnessValue = sharpnessValue
 
         # deleting the file if filename already exists
