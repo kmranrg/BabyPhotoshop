@@ -9,18 +9,21 @@ def index(request):
     return render(request, 'index.html')
 
 
-def sharpness(sharpness_value, imageFile):
-    img = Image.open(imageFile)
-    enhancer = ImageEnhance.Sharpness(img)
-    img = enhancer.enhance(sharpness_value)
+def sharpness(sharpnessValue, imageFileName):
+    imageFileName = str(imageFileName)
+    sharpnessValue = float(sharpnessValue)
 
-    if imageFile[-3:] == "jpg":
+    img = Image.open(imageFileName)
+    enhancer = ImageEnhance.Sharpness(img)
+    img = enhancer.enhance(sharpnessValue)
+
+    if imageFileName[-3:] == "jpg":
         img.save("media/sharpness_kumar_anurag.jpg")
         return "jpg"
-    elif imageFile[-3:] == "png":
+    elif imageFileName[-3:] == "png":
         img.save("media/sharpness_kumar_anurag.png")
         return "png"
-    elif imageFile[-4:] == "jpeg":
+    elif imageFileName[-4:] == "jpeg":
         img.save("media/sharpness_kumar_anurag.jpeg")
         return "jpeg"
     else:
@@ -28,7 +31,7 @@ def sharpness(sharpness_value, imageFile):
 
 def saturate(saturationValue, imageFileName):
     imageFileName = str(imageFileName)
-    saturationValue = int(saturationValue)
+    saturationValue = float(saturationValue)
     img = Image.open(imageFileName)
     
     color = ImageEnhance.Color(img)
@@ -79,7 +82,7 @@ def transpose(transposeValue, imageFileName):
 
 def brightness(brightnessValue, imageFileName):
     imageFileName = str(imageFileName)
-    brightnessValue = int(brightnessValue)
+    brightnessValue = float(brightnessValue)
 
     img = Image.open(imageFileName)
 
@@ -97,6 +100,56 @@ def brightness(brightnessValue, imageFileName):
         return "jpeg"
     else:
         return "file not saved"
+
+def contrast(contrastValue, imageFileName):
+    imageFileName = str(imageFileName)
+    contrastValue = float(contrastValue)
+
+    img = Image.open(imageFileName)
+
+    contrast = ImageEnhance.Contrast(img)
+    img = contrast.enhance(contrastValue)
+
+    if imageFileName[-3:] == "jpg":
+        img.save("media/contrast_kumar_anurag.jpg")
+        return "jpg"
+    elif imageFileName[-3:] == "png":
+        img.save("media/contrast_kumar_anurag.png")
+        return "png"
+    elif imageFileName[-4:] == "jpeg":
+        img.save("media/contrast_kumar_anurag.jpeg")
+        return "jpeg"
+    else:
+        return "file not saved"
+
+def photo_contrast(request):
+    usr_uploaded_file = ""
+    usr_contrastValue = 0
+    if request.method == 'POST':
+
+        uploaded_file = request.FILES['imageFileForContrast']
+        usr_uploaded_file = str(uploaded_file.name)
+
+        contrastValue = float(request.POST["contrastValue"])
+        usr_contrastValue = contrastValue
+
+        # deleting the file if filename already exists
+        if path.exists("media/"+usr_uploaded_file):
+            remove("media/"+usr_uploaded_file)
+
+        # saving the file
+        fs = FileSystemStorage()
+        fs.save(uploaded_file.name, uploaded_file)
+
+        # calling contrast function
+        fileType = contrast(usr_contrastValue , "media/"+usr_uploaded_file)
+
+        if fileType == "file not saved":
+            usr_uploaded_file = "File  not uploaded. Please upload jpg, png and jpeg file formats only"
+        else:
+            usr_uploaded_file = {"name":uploaded_file.name, "type":fileType}
+
+    return render(request, 'photo_contrast.html', {'usr_uploaded_file': usr_uploaded_file})
 
 def photo_brightness(request):
     usr_uploaded_file = ""
