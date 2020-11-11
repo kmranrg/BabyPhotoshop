@@ -248,7 +248,7 @@ def photo_transpose(request):
         fs = FileSystemStorage()
         fs.save(uploaded_file.name, uploaded_file)
 
-        # calling sharpness function
+        # calling transpose function
         fileType = transpose(usr_transposeValue , "media/"+usr_uploaded_file)
 
         if fileType == "file not saved":
