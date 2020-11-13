@@ -26,7 +26,7 @@ def sharpness(sharpnessValue, imageFileName):
         img.save("media/sharpness_kumar_anurag.jpeg")
         return "jpeg"
     else:
-        return "file not saved"
+        return "fileNotSaved"
 
 def saturate(saturationValue, imageFileName):
     imageFileName = str(imageFileName)
@@ -46,7 +46,7 @@ def saturate(saturationValue, imageFileName):
         img.save("media/saturated_kumar_anurag.jpeg")
         return "jpeg"
     else:
-        return "file not saved"
+        return "fileNotSaved"
 
 def transpose(transposeValue, imageFileName):
     imageFileName = str(imageFileName)
@@ -65,7 +65,7 @@ def transpose(transposeValue, imageFileName):
     elif transposeValue == "ROTATE_270":
         img = img.transpose(Image.ROTATE_270)
     else:
-        return "file not saved"
+        return "fileNotSaved"
     
     if imageFileName[-3:] == "jpg":
         img.save("media/transposed_kumar_anurag.jpg")
@@ -77,7 +77,7 @@ def transpose(transposeValue, imageFileName):
         img.save("media/transposed_kumar_anurag.jpeg")
         return "jpeg"
     else:
-        return "file not saved"
+        return "fileNotSaved"
 
 def brightness(brightnessValue, imageFileName):
     imageFileName = str(imageFileName)
@@ -98,7 +98,7 @@ def brightness(brightnessValue, imageFileName):
         img.save("media/brightness_kumar_anurag.jpeg")
         return "jpeg"
     else:
-        return "file not saved"
+        return "fileNotSaved"
 
 def contrast(contrastValue, imageFileName):
     imageFileName = str(imageFileName)
@@ -119,7 +119,7 @@ def contrast(contrastValue, imageFileName):
         img.save("media/contrast_kumar_anurag.jpeg")
         return "jpeg"
     else:
-        return "file not saved"
+        return "fileNotSaved"
 
 def gaussianBlur(gblurValue, imageFileName):
     imageFileName = str(imageFileName)
@@ -139,7 +139,47 @@ def gaussianBlur(gblurValue, imageFileName):
         img.save("media/gblur_kumar_anurag.jpeg")
         return "jpeg"
     else:
-        return "file not saved"
+        return "fileNotSaved"
+
+def convert_to_pdf(imageFileName):
+    imageFileName = str(imageFileName)
+    img = Image.open(imageFileName)
+    try:
+        img.save("media/pdf_kumar_anurag.pdf")
+        return "pdf"
+    except ValueError:
+        rgb = Image.new('RGB', img.size, (255, 255, 255))  # white background
+        rgb.paste(img, mask=img.split()[3])               # paste using alpha channel as mask
+        rgb.save("media/pdf_kumar_anurag.pdf", 'PDF', resoultion=100.0)
+        return "pdf"
+    except:
+        return "fileNotSaved"
+
+def photo_pdf(request):
+    usr_uploaded_file = ""
+    if request.method == 'POST':
+
+        uploaded_file = request.FILES['imageFileForPDF']
+        usr_uploaded_file = str(uploaded_file.name)
+
+        # deleting the file if filename already exists
+        if path.exists("media/"+usr_uploaded_file):
+            remove("media/"+usr_uploaded_file)
+
+        # saving the file
+        fs = FileSystemStorage()
+        fs.save(uploaded_file.name, uploaded_file)
+
+        # calling convert_to_pdf function
+        fileType = convert_to_pdf("media/"+usr_uploaded_file)
+
+        if fileType == "fileNotSaved":
+            usr_uploaded_file = "File  not uploaded. Please upload jpg, png and jpeg file formats only"
+        else:
+            usr_uploaded_file = {"name":uploaded_file.name, "type":fileType}
+
+    return render(request, 'photo_pdf.html', {'usr_uploaded_file': usr_uploaded_file})
+
 
 def photo_gaussian_blur(request):
     usr_uploaded_file = ""
@@ -163,7 +203,7 @@ def photo_gaussian_blur(request):
         # calling gaussianBlur function
         fileType = gaussianBlur(usr_gaussianBlurValue , "media/"+usr_uploaded_file)
 
-        if fileType == "file not saved":
+        if fileType == "fileNotSaved":
             usr_uploaded_file = "File  not uploaded. Please upload jpg, png and jpeg file formats only"
         else:
             usr_uploaded_file = {"name":uploaded_file.name, "type":fileType}
@@ -192,7 +232,7 @@ def photo_contrast(request):
         # calling contrast function
         fileType = contrast(usr_contrastValue , "media/"+usr_uploaded_file)
 
-        if fileType == "file not saved":
+        if fileType == "fileNotSaved":
             usr_uploaded_file = "File  not uploaded. Please upload jpg, png and jpeg file formats only"
         else:
             usr_uploaded_file = {"name":uploaded_file.name, "type":fileType}
@@ -221,7 +261,7 @@ def photo_brightness(request):
         # calling brightness function
         fileType = brightness(usr_brightnessValue , "media/"+usr_uploaded_file)
 
-        if fileType == "file not saved":
+        if fileType == "fileNotSaved":
             usr_uploaded_file = "File  not uploaded. Please upload jpg, png and jpeg file formats only"
         else:
             usr_uploaded_file = {"name":uploaded_file.name, "type":fileType}
@@ -251,7 +291,7 @@ def photo_transpose(request):
         # calling transpose function
         fileType = transpose(usr_transposeValue , "media/"+usr_uploaded_file)
 
-        if fileType == "file not saved":
+        if fileType == "fileNotSaved":
             usr_uploaded_file = "File  not uploaded. Please upload jpg, png and jpeg file formats only"
         else:
             usr_uploaded_file = {"name":uploaded_file.name, "type":fileType}
@@ -279,7 +319,7 @@ def photo_saturation(request):
         # calling saturate function
         fileType = saturate(usr_saturationValue, "media/"+usr_uploaded_file)
 
-        if fileType == "file not saved":
+        if fileType == "fileNotSaved":
             usr_uploaded_file = "File  not uploaded. Please upload jpg, png and jpeg file formats only"
         else:
             usr_uploaded_file = {"name":uploaded_file.name, "type":fileType}
@@ -308,7 +348,7 @@ def photo_sharpness(request):
         # calling sharpness function
         fileType = sharpness(usr_sharpnessValue , "media/"+usr_uploaded_file)
 
-        if fileType == "file not saved":
+        if fileType == "fileNotSaved":
             usr_uploaded_file = "File  not uploaded. Please upload jpg, png and jpeg file formats only"
         else:
             usr_uploaded_file = {"name":uploaded_file.name, "type":fileType}
